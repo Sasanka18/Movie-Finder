@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinemaScope - Advanced Movie Finder</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="site-title">CinemaScope</h1>
+            <p class="site-tagline">Discover Your Next Favorite Film</p>
+            
+            <div class="search-container">
+                <input id="name" placeholder="Enter movie title..."/>
+                <button onclick="search()"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="quick-search">
+                <span>Quick Search: </span>
+                <button class="tag-btn" onclick="quickSearch('Action')">Action</button>
+                <button class="tag-btn" onclick="quickSearch('Comedy')">Comedy</button>
+                <button class="tag-btn" onclick="quickSearch('Drama')">Drama</button>
+                <button class="tag-btn" onclick="quickSearch('Sci-Fi')">Sci-Fi</button>
+                <button class="tag-btn" onclick="quickSearch('Adventure')">Adventure</button>
+            </div>
+        </header>
+        
+        <main class="movie-info" id="movieInfo">
+            <div class="movie-header">
+                <h2 id="movieName"></h2>
+                <div class="movie-meta">
+                    <span id="year" class="year"></span>
+                    <span id="duration" class="duration"></span>
+                    <span id="rated" class="rated"></span>
+                    <span id="genre" class="genre"></span>
+                </div>
+            </div>
+            
+            <div class="movie-content">
+                <div class="poster-container">
+                    <img id="poster" alt="Movie Poster"/>
+                    <div class="watchlist-btn" onclick="toggleWatchlist()">
+                        <i class="fas fa-bookmark"></i> <span id="watchlistText">Add to Watchlist</span>
+                    </div>
+                </div>
+                
+                <div class="details-container">
+                    <div class="plot-section">
+                        <h3>Plot</h3>
+                        <p id="plot"></p>
+                    </div>
+                    
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <h4>Director</h4>
+                            <p id="director"></p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>Writers</h4>
+                            <p id="writer"></p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>Language</h4>
+                            <p id="language"></p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>Awards</h4>
+                            <p id="awards"></p>
+                        </div>
+                        <!-- Box Office will be added dynamically -->
+                    </div>
+                    
+                    <div class="reviews-section">
+                        <h3>Reviews</h3>
+                        <div class="review-stats">
+                            <div class="rating-item">
+                                <span class="rating-label">IMDb</span>
+                                <span id="imdbRating" class="rating-value"></span>
+                                <div class="rating-bar">
+                                    <div id="imdbBar" class="rating-progress"></div>
+                                </div>
+                            </div>
+                            <div class="rating-item">
+                                <span class="rating-label">Rotten Tomatoes</span>
+                                <span id="rtRating" class="rating-value"></span>
+                                <div class="rating-bar">
+                                    <div id="rtBar" class="rating-progress"></div>
+                                </div>
+                            </div>
+                            <div class="rating-item">
+                                <span class="rating-label">Metacritic</span>
+                                <span id="metaRating" class="rating-value"></span>
+                                <div class="rating-bar">
+                                    <div id="metaBar" class="rating-progress"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cast-section">
+                        <h3>Cast</h3>
+                        <p id="actors"></p>
+                    </div>
+                    
+                    <div class="streaming-section">
+                        <h3>Where to Watch</h3>
+                        <div class="streaming-platforms">
+                            <a href="#" class="platform-link" id="netflixLink"><i class="fab fa-netflix"></i></a>
+                            <a href="#" class="platform-link" id="amazonLink"><i class="fab fa-amazon"></i></a>
+                            <a href="#" class="platform-link" id="huluLink"><i class="fas fa-tv"></i></a>
+                            <a href="#" class="platform-link" id="disneyLink"><i class="fab fa-disney-plus"></i></a>
+                        </div>
+                        <p class="stream-disclaimer">Streaming availability is simulated for demo purposes.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="similar-movies">
+                <h3>Similar Movies You Might Like</h3>
+                <div class="similar-grid" id="similarMovies">
+                    <!-- Similar movies will be added here by JavaScript -->
+                </div>
+            </div>
+        </main>
+        
+        <div class="no-results" id="noResults">
+            <p>No movie found. Please try another search.</p>
+            <div class="suggestions">
+                <p>Try these popular searches:</p>
+                <div class="suggestion-buttons">
+                    <button onclick="quickSearch('Inception')">Inception</button>
+                    <button onclick="quickSearch('The Godfather')">The Godfather</button>
+                    <button onclick="quickSearch('Guardians of the Galaxy')">Guardians of the Galaxy</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Searching for your movie...</p>
+        </div>
+        
+        <div class="history-section" id="historySection">
+            <h3>Recent Searches</h3>
+            <ul id="searchHistory"></ul>
+            <button id="clearHistory" onclick="clearHistory()">Clear History</button>
+        </div>
+        
+        <footer>
+            <p>Created by Movie Enthusiasts | Powered by OMDb API</p>
+            <div class="theme-toggle">
+                <span>Theme: </span>
+                <button onclick="toggleTheme()" id="themeToggle"><i class="fas fa-moon"></i></button>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="index.js"></script>
+</body>
+</html>
